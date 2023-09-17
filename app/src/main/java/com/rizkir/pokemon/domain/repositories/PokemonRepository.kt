@@ -5,6 +5,8 @@ import com.rizkir.pokemon.domain.entities.pokemon_detail.Pokemon
 import com.rizkir.pokemon.domain.entities.pokemon_list.PokemonList
 
 interface PokemonRepository {
-    suspend fun getPokemonList(limit: Int, offset: Int): Resource<PokemonList>
-    suspend fun getPokemonDetail(pokemonName: String): Resource<Pokemon>
+    suspend fun getPokemonList(): Resource<PokemonList>
+    suspend fun getPokemonDetail(pokemonName: String?): Resource<Pokemon>
+
+    suspend fun searchPokemon(pokemonName: String): Resource<PokemonList>
 }

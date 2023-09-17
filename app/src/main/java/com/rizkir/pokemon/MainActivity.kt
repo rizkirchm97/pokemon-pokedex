@@ -12,8 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.rizkir.pokemon.common.NavRoute
+import com.rizkir.pokemon.presentation.detail_pokemon.navigation.detailPokemonNavigation
+import com.rizkir.pokemon.presentation.home.navigation.homeNavigation
+import com.rizkir.pokemon.presentation.home.navigation.navigateToDetailItem
 import com.rizkir.pokemon.ui.theme.PokemonTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +27,13 @@ class MainActivity : ComponentActivity() {
             PokemonTheme {
                 // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "pokemon_list_screen" ) {
-
+                NavHost(navController = navController, startDestination = NavRoute.HomeScreen.route ) {
+                    homeNavigation {
+                        navController.navigateToDetailItem(it)
+                    }
+                    detailPokemonNavigation {
+                        navController.popBackStack()
+                    }
                 }
             }
         }
